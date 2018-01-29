@@ -19,11 +19,12 @@ model = mx.FeedForward(mlp, context=mx.gpu())
 # optimization algorithm
 optimizer = mx.SGD(lr=0.1, momentum=0.9)
 
-# Save checkpoints
-cb_save = mx.do_checkpoint( "mnist", frequency = 20, save_epoch_0 = true )
+# # Save checkpoints
+# cb_save = mx.do_checkpoint( "mnist", frequency = 20, save_epoch_0 = true )
 
 # fit parameters
-mx.fit(model, optimizer, train_provider, n_epoch=20, eval_data=eval_provider, callbacks = [cb_save] )
+# mx.fit(model, optimizer, train_provider, n_epoch=20, eval_data=eval_provider, callbacks = [cb_save] )
+mx.fit(model, optimizer, train_provider, n_epoch=20, eval_data=eval_provider )
 
 print( "Start evaluating..." )
 
@@ -49,8 +50,8 @@ println(mx.format("Accuracy on eval set: {1:.2f}%", accuracy))
 
 # Save model
 mx.save( "mnist_arch.json", model.arch )
-mx.save( "mnist_arg_params.params", model.arg_params )
-mx.save( "mnist_aux_params.params", model.aux_params )
+mx.save( "mnist_arg.params", model.arg_params )
+mx.save( "mnist_aux.params", model.aux_params )
 #=
 Load Model as
     model = mx.FeedForward( mx.load("mnist_arch.json",mx.SymbolicNode), context = mx.gpu() )
